@@ -1,7 +1,7 @@
 interface Props {
   value: string;
 }
-export default function Tag({ value }: Props) {
+export function Tag({ value }: Props) {
   const activateTag = (): void => {
     // change color of tag when clicked
     const tagElement = document.querySelector(`.tag#${value}`);
@@ -11,6 +11,14 @@ export default function Tag({ value }: Props) {
   };
   return (
     <span id={`${value}`} className="tag" onClick={activateTag}>
+      {value}
+    </span>
+  );
+}
+
+export function FixedTag({ value }: Props) {
+  return (
+    <span id={`${value}`} className="fixed-tag">
       {value}
     </span>
   );

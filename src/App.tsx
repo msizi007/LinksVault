@@ -2,8 +2,9 @@ import "./App.css";
 import NavBar from "./components/navBar";
 import Input from "./components/input";
 import TextArea from "./components/textArea";
-import Tag from "./components/tag";
+import { Tag } from "./components/tag";
 import Button from "./components/button";
+import ListCard from "./components/listCard";
 
 const tags: string[] = [
   "Tech",
@@ -40,7 +41,36 @@ function App() {
           <Button classname="add-link" text="Add Link" />
         </div>
         <div className="col">
-          <Input placeholder="" />
+          <ListCard
+            title="Google.com"
+            link="https://google.com/search"
+            description="The google website search engine..."
+            tags={["Abby", "Bee"]}
+          />
+          <ListCard
+            title="Google.com"
+            link="https://google.com/search"
+            description="The google website search engine..."
+            tags={["Abby", "Bee"]}
+          />
+          <ListCard
+            title="Google.com"
+            link="https://google.com/search"
+            description="The google website search engine..."
+            tags={["Abby", "Bee"]}
+          />
+          <ListCard
+            title="Google.com"
+            link="https://google.com/search"
+            description="The google website search engine..."
+            tags={["Abby", "Bee"]}
+          />
+          <ListCard
+            title="Google.com"
+            link="https://google.com/search"
+            description="The google website search engine..."
+            tags={["Abby", "Bee"]}
+          />
         </div>
       </div>
     </>

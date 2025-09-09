@@ -25,11 +25,18 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: lora;
+}
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
 }
 
 /* navbar */
 .navbar {
-  font-family: lora;
+  font-family: slabo;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -91,6 +98,17 @@ hr {
 .tag:hover {
   cursor: pointer;
 }
+.fixed-tag {
+  display: inline-block;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.4rem;
+  margin: 0.5rem 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  user-select: none;
+}
 button {
   padding: var(--button-pading);
 }
@@ -98,6 +116,7 @@ button {
   display: flex;
   justify-content: end;
   margin: 1rem;
+  margin-bottom: 2rem;
 }
 .add-link button {
   font-size: 1.1rem;
@@ -108,5 +127,60 @@ button {
   border: none;
   border-radius: 0.5rem;
 }
+.list-card {
+  display: flex;
+  border: 2px solid black;
+  padding: 0.4rem;
+  border-radius: 1rem;
+  margin: 1rem 0;
+}
+.col-2 {
+  display: flex;
+  justify-content: center;
+  width: 16.67%;
+}
+.col-10 {
+  width: 83.33%;
+  padding-left: 1rem;
+}
+.col-10 .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.col-10 .col {
+  gap: 0.3rem;
+}
+.col-10 .row button {
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+}
+.col-10 h4 {
+  font-size: 1.2rem;
+  display: block;
+}
+.col-10 a {
+  display: block;
+}
+.col-row {
+  display: flex;
+  gap: 0.4rem;
+}
+.col-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
 
+.btn-edit {
+  background-color: var(--color-blue);
+  border: none;
+}
+.btn-delete {
+  background-color: var(--color-coral);
+  border: none;
+}
+.btn-delete .icon img {
+  color: white;
+}
 /* media queries --> MOBILE FIRST APPROACH */
