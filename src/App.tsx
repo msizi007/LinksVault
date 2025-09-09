@@ -6,6 +6,9 @@ import { Tag } from "./components/tag";
 import Button from "./components/button";
 import ListCard from "./components/listCard";
 
+// TODO: Add (dev) branch and work on dev...
+// TODO: Add functionality and states (useState, useEffect)
+
 const tags: string[] = [
   "Tech",
   "News",
