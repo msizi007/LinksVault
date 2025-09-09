@@ -1,0 +1,78 @@
+/* fonts */
+@font-face {
+  font-family: lora;
+  src: url("../src/assets/fonts/lora/Lora-Regular.ttf");
+}
+@font-face {
+  font-family: slabo;
+  src: url("../src/assets/fonts/slabo/Slabo27px-Regular.ttf");
+}
+
+/* root */
+:root {
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-secondary: #888888;
+  --color-blue: #5386e4;
+  --color-coral: #ff8552;
+
+  --input-pading: 0.7rem;
+}
+
+/* template styling */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* navbar */
+.navbar {
+  font-family: lora;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+.searchbar {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.searchbar input {
+  width: 100%;
+  padding: var(--input-pading);
+}
+.searchbar .search-button {
+  position: absolute;
+  right: 1px;
+  border: none;
+}
+hr {
+  height: 0.2rem;
+  background-color: black;
+  margin-bottom: 1rem;
+}
+
+/* main */
+.main {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+.input,
+.text-area {
+  width: 100%;
+  padding: var(--input-pading);
+  margin-bottom: 1rem;
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border-radius: 5px;
+}
+.input::placeholder,
+.text-area::placeholder {
+  color: white;
+}
+
+/* media queries --> MOBILE FIRST APPROACH */
