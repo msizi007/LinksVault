@@ -2,6 +2,20 @@ import "./App.css";
 import NavBar from "./components/navBar";
 import Input from "./components/input";
 import TextArea from "./components/textArea";
+import Tag from "./components/tag";
+
+const tags: string[] = [
+  "Tech",
+  "News",
+  "Production",
+  "Education",
+  "Business",
+  "UI/UX",
+  "Sports",
+  "Entertainment",
+  "AI",
+  "Health",
+];
 
 function App() {
   return (
@@ -17,6 +31,11 @@ function App() {
             placeholder="Description..."
             rows={4}
           />
+          <div className="tags">
+            {tags.map((tag) => (
+              <Tag value={tag} />
+            ))}
+          </div>
         </div>
         <div className="col">....</div>
       </div>

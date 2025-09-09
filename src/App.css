@@ -74,5 +74,21 @@ hr {
 .text-area::placeholder {
   color: white;
 }
+.tag {
+  display: inline-block;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.4rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  user-select: none;
+}
+.tag.active {
+  background-color: var(--color-coral);
+}
+.tag:hover {
+  cursor: pointer;
+}
 
 /* media queries --> MOBILE FIRST APPROACH */
