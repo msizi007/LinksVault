@@ -15,8 +15,10 @@
   --color-secondary: #888888;
   --color-blue: #5386e4;
   --color-coral: #ff8552;
+  --color-button-blue: rgb(59, 116, 185);
 
-  --input-pading: 0.7rem;
+  --input-pading: 1rem;
+  --input-font-size: 1rem;
   --button-padding: 0.5rem 1rem;
 }
 
@@ -47,14 +49,24 @@ body,
   align-items: center;
   position: relative;
 }
-.searchbar input {
+.searchbar input,
+.searchbar input:focus {
   width: 100%;
-  padding: var(--input-pading);
+  padding: 0.8rem 2rem;
+  border: 3px solid var(--color-button-blue);
+  font-size: var(--input-font-size);
+  border-radius: 1rem;
+  outline: none;
 }
 .searchbar .search-button {
   position: absolute;
-  right: 4px;
+  height: 100%;
+  right: 0px;
   border: none;
+  background-color: var(--color-button-blue);
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 0.4rem 1rem;
 }
 hr {
   height: 0.2rem;
@@ -77,6 +89,7 @@ hr {
   background-color: var(--color-secondary);
   color: var(--color-white);
   border-radius: 5px;
+  font-size: var(--input-font-size);
 }
 .input::placeholder,
 .text-area::placeholder {
