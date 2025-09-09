@@ -3,6 +3,7 @@ import NavBar from "./components/navBar";
 import Input from "./components/input";
 import TextArea from "./components/textArea";
 import Tag from "./components/tag";
+import Button from "./components/button";
 
 const tags: string[] = [
   "Tech",
@@ -36,8 +37,11 @@ function App() {
               <Tag value={tag} />
             ))}
           </div>
+          <Button classname="add-link" text="Add Link" />
         </div>
-        <div className="col">....</div>
+        <div className="col">
+          <Input placeholder="" />
+        </div>
       </div>
     </>
   );

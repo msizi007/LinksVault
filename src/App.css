@@ -17,6 +17,7 @@
   --color-coral: #ff8552;
 
   --input-pading: 0.7rem;
+  --button-padding: 0.5rem 1rem;
 }
 
 /* template styling */
@@ -45,7 +46,7 @@
 }
 .searchbar .search-button {
   position: absolute;
-  right: 1px;
+  right: 4px;
   border: none;
 }
 hr {
@@ -76,7 +77,7 @@ hr {
 }
 .tag {
   display: inline-block;
-  background-color: var(--color-blue);
+  background-color: var(--color-coral);
   color: var(--color-white);
   padding: 0.3rem 0.7rem;
   border-radius: 0.4rem;
@@ -85,10 +86,27 @@ hr {
   user-select: none;
 }
 .tag.active {
-  background-color: var(--color-coral);
+  background-color: var(--color-blue);
 }
 .tag:hover {
   cursor: pointer;
+}
+button {
+  padding: var(--button-pading);
+}
+.add-link {
+  display: flex;
+  justify-content: end;
+  margin: 1rem;
+}
+.add-link button {
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.6rem 2.4rem;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  border: none;
+  border-radius: 0.5rem;
 }
 
 /* media queries --> MOBILE FIRST APPROACH */
