@@ -1,8 +1,22 @@
+import React from "react";
+
 interface Props {
   classname?: string;
   placeholder: string;
+  value: string;
+  func: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Input({ classname, placeholder }: Props) {
-  return <input className={classname} type="text" placeholder={placeholder} />;
+export default function Input(props: Props) {
+  return (
+    <input
+      className={props.classname}
+      type="text"
+      placeholder={props.placeholder}
+      value={props.value}
+      onChange={(e) => {
+        props.func(e.target.value);
+      }}
+    />
+  );
 }

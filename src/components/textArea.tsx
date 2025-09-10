@@ -1,14 +1,20 @@
+import React from "react";
+
 interface Props {
   classname?: string;
   placeholder: string;
   rows: number;
+  value: string;
+  func: React.Dispatch<React.SetStateAction<string>>;
 }
-export default function TextArea({ classname, placeholder, rows }: Props) {
+export default function TextArea(props: Props) {
   return (
     <textarea
-      className={classname}
-      placeholder={placeholder}
-      rows={rows}
+      className={props.classname}
+      placeholder={props.placeholder}
+      rows={props.rows}
+      value={props.value}
+      onChange={(e) => props.func(e.target.value)}
     ></textarea>
   );
 }

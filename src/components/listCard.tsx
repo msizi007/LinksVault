@@ -1,18 +1,22 @@
 import Icon from "./icon";
-import urlIcon from "../assets/icons/url.png";
-import editIcon from "../assets/icons/pencil.png";
-import deleteIcon from "../assets/icons/bin.png";
+import urlIcon from "../assets/icons/links1.png";
+//import { AppContext } from "./appContext";
+
+//import { useContext } from "react";
 
 import { FixedTag } from "./tag";
+import type { _Tag } from "../models/appModels";
 
 interface Props {
   title: string;
   link: string;
   description: string;
-  tags?: string[];
+  tags?: _Tag[];
 }
 
 export default function ListCard({ title, link, description, tags }: Props) {
+  // const context = useContext(AppContext);
+
   return (
     <div className="list-card">
       <div className="col-2">
@@ -25,12 +29,8 @@ export default function ListCard({ title, link, description, tags }: Props) {
             <a href={link}>{link}</a>
           </div>
           <div className="col-row">
-            <button className="btn-edit">
-              <Icon src={editIcon} alt="edit icon" size={20} />
-            </button>
-            <button className="btn-delete">
-              <Icon src={deleteIcon} alt="delete icon" size={20} />
-            </button>
+            <button className="btn-edit">Edit</button>
+            <button className="btn-delete">Delete</button>
           </div>
         </div>
 

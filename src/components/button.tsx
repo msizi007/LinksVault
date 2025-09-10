@@ -1,11 +1,12 @@
 interface Props {
   classname?: string;
   text: string;
+  func: React.MouseEventHandler;
 }
-export default function Button({ classname, text }: Props) {
+export default function Button(props: Props) {
   return (
-    <div className={classname}>
-      <button>{text}</button>
+    <div className={props.classname}>
+      <button onClick={props.func}>{props.text}</button>
     </div>
   );
 }
