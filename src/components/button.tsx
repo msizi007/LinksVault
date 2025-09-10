@@ -1,7 +1,7 @@
 interface Props {
   classname?: string;
   text: string;
-  func: React.MouseEventHandler;
+  func(url?: string): React.MouseEventHandler | void;
 }
 export default function Button(props: Props) {
   return (

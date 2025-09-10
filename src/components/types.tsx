@@ -1,9 +1,11 @@
-export interface _Link {
+export interface _Bookmark {
   title: string;
-  link: string;
+  url: string;
   description: string;
 }
 export interface _Tag {
   name: string;
   isActive: boolean;
 }
+
+export type CrudMode = "UPDATE" | "CREATE";

@@ -4,7 +4,7 @@ interface Props {
   classname?: string;
   placeholder: string;
   value: string;
-  func: React.Dispatch<React.SetStateAction<string>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function Input(props: Props) {
@@ -15,7 +15,7 @@ export default function Input(props: Props) {
       placeholder={props.placeholder}
       value={props.value}
       onChange={(e) => {
-        props.func(e.target.value);
+        props.setValue(e.target.value);
       }}
     />
   );

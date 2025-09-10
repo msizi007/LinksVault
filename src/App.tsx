@@ -1,17 +1,11 @@
 import "./App.css";
-// components
 import NavBar from "./components/navBar";
-import Input from "./components/input";
-import TextArea from "./components/textArea";
-import { Tag } from "./components/tag";
-import Button from "./components/button";
+import Form from "./components/form";
 import ListCard from "./components/listCard";
 import NoLinks from "./components/noLinks";
-// states
 import { useState } from "react";
+import type { _Bookmark, _Tag, CrudMode } from "./components/types";
 import { AppContext } from "./components/appContext";
-// models
-import type { _Link, _Tag } from "./models/appModels";
 
 // TODO: Add (dev) branch and work on dev...
 // TODO: Add functionality and states (useState, useEffect)
@@ -32,78 +26,96 @@ const allTags = [
 
 export function App() {
   const [title, setTitle] = useState<string>("");
-  const [link, setLink] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [tags, setTags] = useState<_Tag[]>(allTags);
-  const [links, setLinks] = useState<_Link[]>([]);
-  // const [buttonText, setButtonText] = useState("");
+  const [bookmarks, setBookmarks] = useState<_Bookmark[]>([]);
+  const [mode, setMode] = useState<CrudMode>("CREATE");
+  // another state to kkep track of updated link
+  const [updated, setUpdated] = useState<string>("");
 
   function toggleTag(myTag: _Tag) {
     console.log("TOGGLE TAG CALLED!");
 
-    const updatedTags: _Tag[] = allTags.map((tag) =>
+    const updatedTags: _Tag[] = tags.map((tag) =>
       tag.name === myTag.name ? { ...tag, isActive: !tag.isActive } : tag
     );
     setTags(updatedTags);
     console.log(myTag);
   }
 
-  function addLink(): void {
-    const newLink = {
-      link: link,
+  function addLink() {
+    const newBookmark = {
+      url: url,
       title: title,
       description: description,
     };
-    setLink("");
-    setTitle("");
-    setDescription("");
+    console.log("ADD LINK. FUNCTION CALL...");
 
-    setLinks([...links, newLink]);
+    setUrl("red");
+    setTitle("red");
+    setDescription("red");
+
+    setBookmarks([...bookmarks, newBookmark]);
+  }
+
+  function deleteLink(url: string) {
+    console.log("DELETE FUNCTION...");
+    setBookmarks(bookmarks.filter((item) => (item.url === url ? false : true)));
+  }
+
+  function updateLink(url: string): void {
+    console.log("UPDATED: " + url);
+
+    setBookmarks((prev) =>
+      prev.map((item) =>
+        item.url === url
+          ? { ...item, title, description } // replace with new data
+          : item
+      )
+    );
+
+    setMode("CREATE");
+    setUpdated("");
   }
 
   return (
     <AppContext.Provider
       value={{
+        title,
+        setTitle,
+        url,
+        setUrl,
+        bookmarks,
+        setBookmarks,
+        description,
+        setDescription,
+        tags,
+        setTags,
+        mode,
+        setMode,
+        updated,
+        setUpdated,
+        toggleTag,
         addLink,
+        updateLink,
+        deleteLink,
       }}
     >
       <NavBar title="Links Vault" />
       <hr />
       <div className="main">
         <div className="col">
-          <Input
-            classname="input"
-            placeholder="Title..."
-            value={title}
-            func={setTitle}
-          />
-          <Input
-            classname="input"
-            placeholder="Link(URL)..."
-            value={link}
-            func={setLink}
-          />
-          <TextArea
-            classname="text-area"
-            placeholder="Description..."
-            rows={4}
-            value={description}
-            func={setDescription}
-          />
-          <div className="tags">
-            {tags.map((tag) => (
-              <Tag value={tag} onToggle={toggleTag} />
-            ))}
-          </div>
-          <Button classname="add-link" text="Add Link" func={addLink} />
+          <Form />
         </div>
         <div className="col">
-          {links.length > 0 ? (
-            links.map((link) => (
+          {bookmarks.length > 0 ? (
+            bookmarks.map((bookmark, i) => (
               <ListCard
-                title={link.title}
-                link={link.link}
-                description={link.description}
+                key={i}
+                title={bookmark.title}
+                url={bookmark.url}
+                description={bookmark.description}
               />
             ))
           ) : (
