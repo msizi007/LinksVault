@@ -34,9 +34,9 @@ export function App() {
   const [mode, setMode] = useState<CrudMode>("CREATE");
   // another state to kkep track of updated link
   const [updated, setUpdated] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
 
   function toggleTag(myTag: _Tag) {
-
     const updatedTags: _Tag[] = tags.map((tag) =>
       tag.name === myTag.name ? { ...tag, isActive: !tag.isActive } : tag
     );
@@ -64,7 +64,6 @@ export function App() {
   }
 
   function updateLink(myUrl: string): void {
-
     setBookmarks((prev) =>
       prev.map((item) =>
         item.url === myUrl
@@ -79,6 +78,19 @@ export function App() {
 
     setMode("CREATE");
     setUpdated("");
+  }
+
+  function searchItem() {
+    const lowerTerm = search.toLowerCase();
+
+    const res: _Bookmark[] = bookmarks.filter(
+      (b) =>
+        b.title.toLowerCase().includes(lowerTerm) ||
+        b.description.toLowerCase().includes(lowerTerm) ||
+        b.url.toLowerCase().includes(lowerTerm)
+    );
+
+    setBookmarks(res);
   }
 
   return (
@@ -102,6 +114,9 @@ export function App() {
         addLink,
         updateLink,
         deleteLink,
+        search,
+        setSearch,
+        searchItem,
       }}
     >
       <NavBar title="Links Vault" />

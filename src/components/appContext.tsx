@@ -21,6 +21,9 @@ interface AppContextType {
   addLink(): void;
   updateLink(url: string): void;
   deleteLink(url: string): void;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  searchItem(): void;
 }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType);
