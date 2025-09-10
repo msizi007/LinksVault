@@ -6,6 +6,7 @@ import NoLinks from "./components/noLinks";
 import { useState } from "react";
 import type { _Bookmark, _Tag, CrudMode } from "./components/types";
 import { AppContext } from "./components/appContext";
+import Footer from "./components/footer";
 
 // TODO: Add (dev) branch and work on dev...
 // TODO: Add functionality and states (useState, useEffect)
@@ -35,13 +36,11 @@ export function App() {
   const [updated, setUpdated] = useState<string>("");
 
   function toggleTag(myTag: _Tag) {
-    console.log("TOGGLE TAG CALLED!");
 
     const updatedTags: _Tag[] = tags.map((tag) =>
       tag.name === myTag.name ? { ...tag, isActive: !tag.isActive } : tag
     );
     setTags(updatedTags);
-    console.log(myTag);
   }
 
   function addLink() {
@@ -50,30 +49,33 @@ export function App() {
       title: title,
       description: description,
     };
-    console.log("ADD LINK. FUNCTION CALL...");
 
-    setUrl("red");
-    setTitle("red");
-    setDescription("red");
+    setUrl("");
+    setTitle("");
+    setDescription("");
 
     setBookmarks([...bookmarks, newBookmark]);
   }
 
-  function deleteLink(url: string) {
-    console.log("DELETE FUNCTION...");
-    setBookmarks(bookmarks.filter((item) => (item.url === url ? false : true)));
+  function deleteLink(myUrl: string) {
+    setBookmarks(
+      bookmarks.filter((item) => (item.url === myUrl ? false : true))
+    );
   }
 
-  function updateLink(url: string): void {
-    console.log("UPDATED: " + url);
+  function updateLink(myUrl: string): void {
 
     setBookmarks((prev) =>
       prev.map((item) =>
-        item.url === url
-          ? { ...item, title, description } // replace with new data
+        item.url === myUrl
+          ? { url, title, description } // replace with new data
           : item
       )
     );
+
+    setUrl("");
+    setTitle("");
+    setDescription("");
 
     setMode("CREATE");
     setUpdated("");
@@ -123,6 +125,7 @@ export function App() {
           )}
         </div>
       </div>
+      <Footer />
     </AppContext.Provider>
   );
 }

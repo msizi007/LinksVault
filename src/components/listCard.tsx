@@ -14,26 +14,17 @@ interface Props {
 
 export default function ListCard(props: Props) {
   const context = useContext(AppContext);
-  const {
-    url,
-    title,
-    description,
-    setMode,
-    setUpdated,
-    setUrl,
-    setTitle,
-    setDescription,
-    deleteLink,
-  } = context;
+  const { setMode, setUpdated, setUrl, setTitle, setDescription, deleteLink } =
+    context;
 
   function editLink() {
     console.log("EDIT FUNCTION...");
 
     setMode("UPDATE");
-    setUpdated(url);
-    setUrl(url);
-    setTitle(title);
-    setDescription(description);
+    setUpdated(props.url);
+    setUrl(props.url);
+    setTitle(props.title);
+    setDescription(props.description);
   }
 
   return (
@@ -44,8 +35,8 @@ export default function ListCard(props: Props) {
       <div className="col-10">
         <div className="row">
           <div className="col-col">
-            <h4>{title}</h4>
-            <a href={url}>{url}</a>
+            <h4>{props.title}</h4>
+            <a href={props.url}>{props.url}</a>
           </div>
           <div className="col-row">
             <button className="btn-edit" onClick={editLink}>
@@ -54,7 +45,7 @@ export default function ListCard(props: Props) {
             <button
               className="btn-delete"
               onClick={() => {
-                deleteLink(url);
+                deleteLink(props.url);
               }}
             >
               Delete
