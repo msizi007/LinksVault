@@ -1,20 +1,38 @@
-import type { _Tag } from "../models/appModels";
+import { useContext } from "react";
+import type { _Tag } from "./types";
+import { AppContext } from "./appContext";
 
 interface TagProps {
   value: _Tag;
-  onToggle(myTag: _Tag): void;
 }
 export function Tag(props: TagProps) {
-  const activateTag = (): void => {
-    // change color of tag when clicked
-    const tagElement = document.querySelector(`#${props.value.name}`);
-    if (tagElement) {
-      tagElement.classList.toggle("active");
-    }
-    props.onToggle(props.value);
-  };
+  const context = useContext(AppContext);
+
+  const { tags, setTags } = context;
+
+  function toggle() {
+    console.log("toggle...", props.value.name, props.value.isActive);
+    console.log(
+      tags.map((tag) => {
+        return tag.name === props.value.name
+          ? { name: props.value.name, isActive: !tag.isActive }
+          : tag;
+      })
+    );
+
+    setTags(
+      tags.map((tag) => {
+        return tag.name === props.value.name
+          ? { name: props.value.name, isActive: !tag.isActive }
+          : tag;
+      })
+    );
+  }
   return (
-    <span id={`${props.value}`} className="tag" onClick={activateTag}>
+    <span
+      className={`tag ${props.value.isActive ? "active" : ""}`}
+      onClick={toggle}
+    >
       {props.value.name}
     </span>
   );

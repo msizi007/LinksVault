@@ -18,8 +18,6 @@ export default function ListCard(props: Props) {
     context;
 
   function editLink() {
-    console.log("EDIT FUNCTION...");
-
     setMode("UPDATE");
     setUpdated(props.url);
     setUrl(props.url);

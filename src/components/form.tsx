@@ -13,7 +13,6 @@ export default function Form() {
     tags,
     url,
     setUrl,
-    toggleTag,
     addLink,
     mode,
     updateLink,
@@ -36,7 +35,7 @@ export default function Form() {
       <TextArea classname="text-area" placeholder="Description..." rows={4} />
       <div className="tags">
         {tags.map((tag, i) => (
-          <Tag key={i} value={tag} onToggle={toggleTag} />
+          <Tag key={i} value={tag} />
         ))}
       </div>
       {mode === "CREATE" ? (

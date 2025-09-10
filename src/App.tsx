@@ -3,10 +3,11 @@ import NavBar from "./components/navBar";
 import Form from "./components/form";
 import ListCard from "./components/listCard";
 import NoLinks from "./components/noLinks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { _Bookmark, _Tag, CrudMode } from "./components/types";
 import { AppContext } from "./components/appContext";
 import Footer from "./components/footer";
+import { getLinks, setLinks } from "./components/utils/storage";
 
 // TODO: Add (dev) branch and work on dev...
 // TODO: Add functionality and states (useState, useEffect)
@@ -35,6 +36,7 @@ export function App() {
   // another state to kkep track of updated link
   const [updated, setUpdated] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+  const [filter, setFilter] = useState<_Bookmark[]>([]);
 
   function toggleTag(myTag: _Tag) {
     const updatedTags: _Tag[] = tags.map((tag) =>
@@ -43,16 +45,30 @@ export function App() {
     setTags(updatedTags);
   }
 
+  useEffect(() => {
+    const vault = getLinks();
+    if (vault.length > 0) {
+      setBookmarks(vault);
+    }
+  }, []);
+
+  useEffect(() => {
+    setLinks(bookmarks);
+    setFilter([]);
+  }, [bookmarks]);
+
   function addLink() {
     const newBookmark = {
       url: url,
       title: title,
       description: description,
+      tags: tags.filter((tag) => tag.isActive === true),
     };
 
     setUrl("");
     setTitle("");
     setDescription("");
+    setTags(allTags);
 
     setBookmarks([...bookmarks, newBookmark]);
   }
@@ -67,7 +83,7 @@ export function App() {
     setBookmarks((prev) =>
       prev.map((item) =>
         item.url === myUrl
-          ? { url, title, description } // replace with new data
+          ? { url, title, description, tags } // replace with new data
           : item
       )
     );
@@ -90,7 +106,8 @@ export function App() {
         b.url.toLowerCase().includes(lowerTerm)
     );
 
-    setBookmarks(res);
+    // bad logic
+    setFilter(res);
   }
 
   return (
@@ -126,15 +143,30 @@ export function App() {
           <Form />
         </div>
         <div className="col">
-          {bookmarks.length > 0 ? (
-            bookmarks.map((bookmark, i) => (
-              <ListCard
-                key={i}
-                title={bookmark.title}
-                url={bookmark.url}
-                description={bookmark.description}
-              />
-            ))
+          {filter.length > 0 ? (
+            <>
+              <p>{filter.length} search results found</p>
+              {filter.map((res, i) => (
+                <ListCard
+                  key={i}
+                  title={res.title}
+                  url={res.url}
+                  description={res.description}
+                />
+              ))}
+            </>
+          ) : bookmarks.length > 0 ? (
+            <>
+              {bookmarks.map((bookmark, i) => (
+                <ListCard
+                  key={i}
+                  title={bookmark.title}
+                  url={bookmark.url}
+                  description={bookmark.description}
+                  tags={bookmark.tags}
+                />
+              ))}
+            </>
           ) : (
             <NoLinks />
           )}
