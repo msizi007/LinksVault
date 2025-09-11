@@ -24,6 +24,8 @@ interface AppContextType {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   searchItem(): void;
+  updateTags(tags?: _Tag[]): void;
+  allTags: _Tag[];
 }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType);

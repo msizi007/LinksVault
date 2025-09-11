@@ -38,7 +38,7 @@ export default function Form() {
           <Tag key={i} value={tag} />
         ))}
       </div>
-      {mode === "CREATE" ? (
+      {mode === "CREATE" || mode === "SEARCH" ? (
         <Button classname="add-link" text="Add Link" func={addLink} />
       ) : (
         <Button

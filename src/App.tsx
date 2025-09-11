@@ -2,7 +2,7 @@ import "./App.css";
 import NavBar from "./components/navBar";
 import Form from "./components/form";
 import ListCard from "./components/listCard";
-import NoLinks from "./components/noLinks";
+import NotFound from "./components/notFound";
 import { useEffect, useState } from "react";
 import type { _Bookmark, _Tag, CrudMode } from "./components/types";
 import { AppContext } from "./components/appContext";
@@ -57,7 +57,16 @@ export function App() {
     setFilter([]);
   }, [bookmarks]);
 
+  function updateTags(mytags: _Tag[]) {
+    const updatedTags = allTags.map((tag) => {
+      const match = mytags.find((t) => t.name === tag.name);
+      return match ? { ...tag, isActive: true } : tag;
+    });
+    setTags(updatedTags);
+  }
+
   function addLink() {
+    setMode("CREATE");
     const newBookmark = {
       url: url,
       title: title,
@@ -83,7 +92,12 @@ export function App() {
     setBookmarks((prev) =>
       prev.map((item) =>
         item.url === myUrl
-          ? { url, title, description, tags } // replace with new data
+          ? {
+              url,
+              title,
+              description,
+              tags: tags.filter((tag) => tag.isActive === true),
+            } // replace with new data
           : item
       )
     );
@@ -97,6 +111,10 @@ export function App() {
   }
 
   function searchItem() {
+    setMode("SEARCH");
+    setFilter([]);
+    console.log(mode);
+
     const lowerTerm = search.toLowerCase();
 
     const res: _Bookmark[] = bookmarks.filter(
@@ -134,6 +152,8 @@ export function App() {
         search,
         setSearch,
         searchItem,
+        updateTags,
+        allTags,
       }}
     >
       <NavBar title="Links Vault" />
@@ -143,33 +163,49 @@ export function App() {
           <Form />
         </div>
         <div className="col">
-          {filter.length > 0 ? (
-            <>
-              <p>{filter.length} search results found</p>
-              {filter.map((res, i) => (
-                <ListCard
-                  key={i}
-                  title={res.title}
-                  url={res.url}
-                  description={res.description}
+          {
+            // if searching...
+            mode === "SEARCH" ? (
+              filter.length > 0 ? (
+                // if searching and found...
+                <>
+                  <p>{filter.length} search results found</p>
+                  {filter.map((res, i) => (
+                    <ListCard
+                      key={i}
+                      title={res.title}
+                      url={res.url}
+                      description={res.description}
+                    />
+                  ))}
+                </>
+              ) : (
+                // searching and not found...
+                <NotFound
+                  title="No search results found!"
+                  subtitle="Make sure you have have typed correctly and try again."
                 />
-              ))}
-            </>
-          ) : bookmarks.length > 0 ? (
-            <>
-              {bookmarks.map((bookmark, i) => (
-                <ListCard
-                  key={i}
-                  title={bookmark.title}
-                  url={bookmark.url}
-                  description={bookmark.description}
-                  tags={bookmark.tags}
-                />
-              ))}
-            </>
-          ) : (
-            <NoLinks />
-          )}
+              )
+            ) : // not searching....
+            bookmarks.length > 0 ? (
+              <>
+                {bookmarks.map((bookmark, i) => (
+                  <ListCard
+                    key={i}
+                    title={bookmark.title}
+                    url={bookmark.url}
+                    description={bookmark.description}
+                    tags={bookmark.tags}
+                  />
+                ))}
+              </>
+            ) : (
+              <NotFound
+                title="No search results found!"
+                subtitle="Make sure you have have typed correctly and try again."
+              />
+            )
+          }
         </div>
       </div>
       <Footer />

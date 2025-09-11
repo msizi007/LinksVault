@@ -9,4 +9,4 @@ export interface _Tag {
   isActive: boolean;
 }
 
-export type CrudMode = "UPDATE" | "CREATE";
+export type CrudMode = "UPDATE" | "CREATE" | "SEARCH";

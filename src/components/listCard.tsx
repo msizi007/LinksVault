@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AppContext } from "./appContext";
 import { FixedTag } from "./tag";
 import type { _Tag } from "./types";
+import { useEffect } from "react";
 
 interface Props {
   title: string;
@@ -14,8 +15,23 @@ interface Props {
 
 export default function ListCard(props: Props) {
   const context = useContext(AppContext);
-  const { setMode, setUpdated, setUrl, setTitle, setDescription, deleteLink } =
-    context;
+  const {
+    setMode,
+    setUpdated,
+    setUrl,
+    setTitle,
+    setDescription,
+    deleteLink,
+    updateTags,
+    tags,
+    setTags,
+  } = context;
+
+  // Update selectedTags when props.tags change
+  useEffect(() => {
+    setTags(tags);
+    console.log("rendered");
+  }, [tags, setTags]);
 
   function editLink() {
     setMode("UPDATE");
@@ -23,6 +39,9 @@ export default function ListCard(props: Props) {
     setUrl(props.url);
     setTitle(props.title);
     setDescription(props.description);
+    // TODO: set tags too... NOTE: active tags noeed to be set... update all tags to include active ones...
+
+    updateTags(props.tags);
   }
 
   return (
