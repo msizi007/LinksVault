@@ -7,6 +7,18 @@ Now publicly available on: https://linksvault.onrender.com
 
 **Description:** This is an application that allows users to add/bookmark their favourite links in just a click. This helps users remember their links and bookmark them as their favourite.
 
+### Application Preview
+<table>
+  <tr>
+    <td>
+      <img width="100%" src="https://github.com/user-attachments/assets/78278be3-c053-4286-9a0d-0800f5e607e8" alt="Screenshot 1" />
+    </td>
+    <td>
+      <img width="100%" src="https://github.com/user-attachments/assets/d50a7cb5-eb09-4a2a-97f9-9e91737629c9" alt="Screenshot 2" />
+    </td>
+  </tr>
+</table>
+
 ### How to install
 
 1. Clone the project to your local machine by running
@@ -33,5 +45,6 @@ npm run dev
 ### Media Queries
 
 - Mobile (< 600px)
+- Tablet (600px < x <1024px)
 - Desktop (> 1024px)
 
