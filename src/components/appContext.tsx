@@ -27,5 +27,5 @@ interface AppContextType {
   updateTags(tags?: _Tag[]): void;
   allTags: _Tag[];
 }
-
+  
 export const AppContext = createContext<AppContextType>({} as AppContextType);
