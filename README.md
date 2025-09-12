@@ -18,7 +18,6 @@ Now publicly available on: https://linksvault.onrender.com
     </td>
   </tr>
 </table>
-
 ### How to install
 
 1. Clone the project to your local machine by running
