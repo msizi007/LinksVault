@@ -37,8 +37,8 @@ export function App() {
   const [updated, setUpdated] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const [filter, setFilter] = useState<_Bookmark[]>([]);
-  const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
-  const [toggleText, setToggleText] = useState<string>("+");
+  const [isFormVisible, setIsFormVisible] = useState<boolean>(true);
+  const [toggleText, setToggleText] = useState<string>("-");
 
   function toggleForm() {
     const nextVisibility = !isFormVisible;
