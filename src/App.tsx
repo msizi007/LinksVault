@@ -25,7 +25,6 @@ const allTags = [
   { name: "AI", isActive: false },
   { name: "Health", isActive: false },
 ];
-
 export function App() {
   const [title, setTitle] = useState<string>("");
   const [url, setUrl] = useState<string>("");
@@ -37,8 +36,16 @@ export function App() {
   const [updated, setUpdated] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const [filter, setFilter] = useState<_Bookmark[]>([]);
-  const [isFormVisible, setIsFormVisible] = useState<boolean>(true);
-  const [toggleText, setToggleText] = useState<string>("-");
+  const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
+  const [toggleText, setToggleText] = useState<string>("+");
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   function toggleForm() {
     const nextVisibility = !isFormVisible;
@@ -92,7 +99,11 @@ export function App() {
     setDescription("");
     setTags(allTags);
 
-    setBookmarks([...bookmarks, newBookmark]);
+    if (url && title && description) {
+      setBookmarks([...bookmarks, newBookmark]);
+    } else {
+      alert("Please fill in all the required fields before adding a bookmark.");
+    }
   }
 
   function deleteLink(myUrl: string) {
@@ -177,7 +188,14 @@ export function App() {
       <NavBar title="Links Vault" />
       <hr />
       <div className="main">
-        <div className="col">{isFormVisible && <Form />}</div>
+        {width > 768 ? (
+          <div className="col">
+            <Form />
+          </div>
+        ) : (
+          <div className="col">{isFormVisible && <Form />}</div>
+        )}
+
         <div className="col">
           {
             // if searching...
