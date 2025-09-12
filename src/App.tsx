@@ -37,6 +37,14 @@ export function App() {
   const [updated, setUpdated] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const [filter, setFilter] = useState<_Bookmark[]>([]);
+  const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
+  const [toggleText, setToggleText] = useState<string>("+");
+
+  function toggleForm() {
+    const nextVisibility = !isFormVisible;
+    setIsFormVisible(nextVisibility);
+    setToggleText(nextVisibility ? "-" : "+");
+  }
 
   function toggleTag(myTag: _Tag) {
     const updatedTags: _Tag[] = tags.map((tag) =>
@@ -56,6 +64,11 @@ export function App() {
     setLinks(bookmarks);
     setFilter([]);
   }, [bookmarks]);
+
+  useEffect(() => {
+    console.log("changed filter");
+    console.log(filter);
+  }, [filter]);
 
   function updateTags(mytags: _Tag[]) {
     const updatedTags = allTags.map((tag) => {
@@ -111,6 +124,7 @@ export function App() {
   }
 
   function searchItem() {
+    setSearch("");
     setMode("SEARCH");
     setFilter([]);
     console.log(mode);
@@ -121,7 +135,8 @@ export function App() {
       (b) =>
         b.title.toLowerCase().includes(lowerTerm) ||
         b.description.toLowerCase().includes(lowerTerm) ||
-        b.url.toLowerCase().includes(lowerTerm)
+        b.url.toLowerCase().includes(lowerTerm) ||
+        b.tags?.some((tag) => tag.name.toLowerCase().includes(lowerTerm))
     );
 
     // bad logic
@@ -156,12 +171,13 @@ export function App() {
         allTags,
       }}
     >
+      <button className="action-button" onClick={toggleForm}>
+        {toggleText}
+      </button>
       <NavBar title="Links Vault" />
       <hr />
       <div className="main">
-        <div className="col">
-          <Form />
-        </div>
+        <div className="col">{isFormVisible && <Form />}</div>
         <div className="col">
           {
             // if searching...
@@ -176,6 +192,7 @@ export function App() {
                       title={res.title}
                       url={res.url}
                       description={res.description}
+                      tags={res.tags}
                     />
                   ))}
                 </>
