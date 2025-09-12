@@ -218,8 +218,8 @@ export function App() {
               </>
             ) : (
               <NotFound
-                title="No search results found!"
-                subtitle="Make sure you have have typed correctly and try again."
+                title="Oops! No bookmarks found!"
+                subtitle="Add your first bookmark to get started."
               />
             )
           }
